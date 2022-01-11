@@ -139,16 +139,104 @@ if __name__ == '__main__':
 def my_gen():
     x = 5
     y = 6
+    print('Processing halted')
     yield x, y
 
+    print('\nProcessing resumed')
     x += y
+    print('\nProcessing halted')
     yield x, y
 
+    print('\n Processing resumed')
     x += 1
     y += 10
     yield x, y
 
-for x, y in my_gen():
-    print(x, y)
+idx = 1
+for c, d in my_gen():
+    print('{} loop started'.format(idx))
+    print(c, d)
+    idx += 1
+
 
 #%%
+# --------------------------------------------------------------
+# ---- %%%%%%%% 1.4 DECORATORS FOR TIMES ANALYSIS %%%%%%%%%%%%%%%%% ----
+# --------------------------------------------------------------
+
+#%%
+# 1.4.1 DECORATORS (Part 1)
+# Enhances the functionality of an existing function by taking the function by taking the function as input and
+# returning a new function. They can be applied to any callable objects like function, method and classes
+
+# Create Function
+def foo():
+    print("This is a normal function")
+
+# Create Decorator
+def my_decorator(my_func):
+    # This function modifies the original function
+    def modified_function():
+        print('Start of a decorated function')
+        my_func()
+        print('End of a decorated function')
+    # Return the modified function
+    return modified_function
+
+# Example 1
+# my_new_function = my_decorator(foo)
+# my_new_function()
+
+# Another Notation
+@my_decorator
+def simple_function():
+    print('Do nothing')
+simple_function()
+
+#%%
+# 1.4.2 DECORATORS (Part 2)
+# Decorators with input arguments
+# Create Decorator
+def my_better_decorator(my_func):
+    # This function modifies the original function (adding arguments)
+    def modified_function(*args, **kwargs):
+        print('Start of a decorated function')
+        my_func(*args, **kwargs)
+        print('End of a decorated function')
+    # Return the modified function
+    return modified_function
+
+@my_better_decorator
+def adder(x, y):
+    print('Sum of x and y is {}'.format(x+y))
+
+adder(2, 3)
+
+#%%
+# 1.4.3 DECORATORS for Time Analysis (Part 3)
+import time
+
+def time_decorator(my_func):
+    def modified_func(*args, **kwargs):
+        start = time.time()
+        my_func(*args, **kwargs)
+        end = time.time()
+        print('Time taken is {} seconds'.format(end - start))
+    return modified_func
+
+@time_decorator
+def create_big_list(size):
+    new_list = []
+    for x in range(0, size):
+        new_list.append(x)
+
+create_big_list(100000)
+
+@time_decorator
+def create_big_list_better(size):
+    return [x for x in range(0, size)]
+
+create_big_list_better(100000)
+
+
+
