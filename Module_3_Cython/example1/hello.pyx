@@ -1,0 +1,1 @@
+print('Hello, this is gonna be a test of cython')

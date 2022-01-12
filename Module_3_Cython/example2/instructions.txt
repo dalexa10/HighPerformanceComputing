@@ -1,0 +1,5 @@
+To run this
+1) Open terminal in the corresponding directory
+2) Run Python
+3) Command "From fact import factorial"
+4) Run the function or assign it to a variable
