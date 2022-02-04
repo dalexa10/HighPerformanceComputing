@@ -1,0 +1,12 @@
+To build a C module
+- Create function in .pyx file
+- Create setup.py file
+- Run python setup.py build_ext --inplace ---> This build an external C module
+
+To run the function in example 2
+1) Open terminal in the corresponding directory
+2) Run Python
+3) Command "From fact import factorial"
+4) Run the function or assign it to a variable
+
+Further info, check https://cython.readthedocs.io/en/latest/
